@@ -10,36 +10,23 @@
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
+            align-items: center;
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #ffafbd, #ffc3a0);
+            background: url('couple.jpg') no-repeat center center fixed;
+            background-size: cover;
             color: #333;
-            padding-top: 20px;
             overflow: auto;
+            touch-action: none; /* Prevents default touch behaviors for dragging */
         }
         .container {
-            text-align: center;
-            max-width: 800px;
+            position: absolute;
+            max-width: 600px;
             padding: 20px;
             background: rgba(255, 255, 255, 0.8);
             border-radius: 15px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
-        .images {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-        img {
-            max-width: 45%;
-            height: auto;
-            border-radius: 15px;
-        }
-        .text {
-            max-height: 60vh;
-            overflow-y: auto;
-            padding: 0 10px;
+            cursor: move; /* Indicates draggable on desktop */
+            touch-action: manipulation; /* Allows custom touch handling */
         }
         h1 {
             font-size: 2.5em;
@@ -68,37 +55,75 @@
             50% { transform: scale(1.2); }
             100% { transform: scale(1); }
         }
-        @media (max-width: 600px) {
-            .images {
-                flex-direction: column;
-                align-items: center;
-            }
-            img {
-                max-width: 100%;
-            }
-        }
     </style>
+    <script>
+        let isDragging = false;
+        let currentX;
+        let currentY;
+        let initialX;
+        let initialY;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.querySelector('.container');
+
+            container.addEventListener('mousedown', startDragging);
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('mouseup', stopDragging);
+
+            // Touch events for mobile
+            container.addEventListener('touchstart', startDragging, { passive: false });
+            document.addEventListener('touchmove', drag, { passive: false });
+            document.addEventListener('touchend', stopDragging);
+
+            function startDragging(e) {
+                isDragging = true;
+                initialX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
+                initialY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
+                // Prevent default to avoid scrolling on touch
+                if (e.type === 'touchstart') e.preventDefault();
+            }
+
+            function drag(e) {
+                if (isDragging) {
+                    e.preventDefault(); // Prevent scrolling during drag
+                    currentX = (e.type === 'touchmove' ? e.touches[0].clientX : e.clientX) - initialX;
+                    currentY = (e.type === 'touchmove' ? e.touches[0].clientY : e.clientY) - initialY;
+
+                    const newX = container.offsetLeft + currentX;
+                    const newY = container.offsetTop + currentY;
+
+                    // Keep within bounds
+                    const maxX = window.innerWidth - container.offsetWidth;
+                    const maxY = window.innerHeight - container.offsetHeight;
+
+                    container.style.left = Math.max(0, Math.min(newX, maxX)) + 'px';
+                    container.style.top = Math.max(0, Math.min(newY, maxY)) + 'px';
+
+                    initialX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
+                    initialY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
+                }
+            }
+
+            function stopDragging() {
+                isDragging = false;
+            }
+        });
+    </script>
 </head>
 <body>
-    <div class="container">
-        <div class="images">
-            <img src="bouquet.jpg" alt="Anniversary Bouquet">
-            <img src="couple.jpg" alt="Our Special Moment">
-        </div>
-        <div class="text">
-            <h1>Happy Anniversary to the love of my life ♥️</h1>
-            <p>
-                Thank you for making every single day a joy. I’m so grateful to have found my dream companion in our Lord. Even with all the signs we’ve received from God, I never needed a sign to know you were the one from our very first dates I already knew I wanted you. Still, it amazes me that God gave us His blessing for one another. I believe He had us written together long before we even met, preparing each of us until the time was right.<br><br>
+    <div class="container" style="left: 50%; top: 50%; transform: translate(-50%, -50%);">
+        <h1>Happy Anniversary to the love of my life ♥️</h1>
+        <p>
+            Thank you for making every single day a joy. I’m so grateful to have found my dream companion in our Lord. Even with all the signs we’ve received from God, I never needed a sign to know you were the one from our very first dates I already knew I wanted you. Still, it amazes me that God gave us His blessing for one another. I believe He had us written together long before we even met, preparing each of us until the time was right.<br><br>
 
-                God has truly allowed me to see the difference between who I was before and who I am now. I know I wasn’t worthy of you then and I own up that, but now I see He was shaping me to hopefully be worthy of such a rare, amazing woman. That thought alone makes me emotional. That’s why I always tell you I promise to give you my very best, even in the difficult times. You are the dream that came true, and for so long I could hardly believe you even said yes to me.<br><br>
+            God has truly allowed me to see the difference between who I was before and who I am now. I know I wasn’t worthy of you then and I own up that, but now I see He was shaping me to hopefully be worthy of such a rare, amazing woman. That thought alone makes me emotional. That’s why I always tell you I promise to give you my very best, even in the difficult times. You are the dream that came true, and for so long I could hardly believe you even said yes to me.<br><br>
 
-                Everything you do for me and my family means the world to me. You’ve given me things no one else ever has, and I can never thank you enough. You are so beautiful, Gaby, truly the most beautiful woman I’ve ever met. I only have eyes for you, and I always look at you in awe. I will always keep praying for you.<br><br>
+            Everything you do for me and my family means the world to me. You’ve given me things no one else ever has, and I can never thank you enough. You are so beautiful, Gaby, truly the most beautiful woman I’ve ever met. I only have eyes for you, and I always look at you in awe. I will always keep praying for you.<br><br>
 
-                I love you ❤️<br><br>
+            I love you ❤️<br><br>
 
-                (One of the best parts is that my “owner” is so fine 🤩😍😘)
-            </p>
-        </div>
+            (One of the best parts is that my “owner” is so fine 🤩😍😘)
+        </p>
     </div>
 </body>
 </html>
