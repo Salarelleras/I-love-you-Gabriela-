@@ -1,79 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Anniversary Gabriela</title>
-    <style>
-        body {
-            margin: 0;
-            min-height: 100vh; /* Changed from height to min-height for flexibility */
-            display: flex;
-            justify-content: center;
-            align-items: flex-start; /* Adjusted to allow content to grow */
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #ffafbd, #ffc3a0); /* Pink gradient restored */
-            color: #333;
-            padding-top: 20px;
-            overflow-y: auto; /* Ensures vertical scrolling when needed */
-        }
-        .container {
-            text-align: center;
-            max-width: 600px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 15px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            margin-bottom: 20px; /* Adds space at the bottom for scrolling */
-        }
-        img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 15px 15px 0 0;
-        }
-        h1 {
-            font-size: 2.5em;
-            color: #e91e63;
-            margin-bottom: 20px;
-            animation: fadeIn 2s ease-in;
-        }
-        p {
-            font-size: 1.2em;
-            line-height: 1.6;
-            color: #444;
-            animation: fadeIn 3s ease-in;
-        }
-        @keyframes fadeIn {
-            0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-        .heart {
-            color: #e91e63;
-            font-size: 1.5em;
-            animation: pulse 1.5s infinite;
-            display: inline-block;
-        }
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Happy Anniversary Gabriela</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --pink-1:#ffafbd; /* background gradient start */
+      --pink-2:#ffc3a0; /* background gradient end   */
+      --accent:#e91e63; /* hot pink */
+      --ink:#2a2a2a;    /* body text */
+      --card-bg:rgba(255,255,255,.9);
+      --radius:18px;
+      --shadow:0 10px 30px rgba(0,0,0,.18);
+    }
+
+    /* Page */
+    html,body{height:100%;}
+    body{
+      margin:0;
+      font-family:"Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--ink);
+      background:linear-gradient(135deg,var(--pink-1),var(--pink-2));
+      display:flex;
+      justify-content:center;
+      align-items:flex-start; /* allow content to grow */
+      padding:24px;
+      min-height:100svh; /* better on mobile */
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    /* Card */
+    .card{
+      width:min(780px,94vw);
+      background:var(--card-bg);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden; /* round the image corners */
+      text-align:center;
+      backdrop-filter:saturate(140%) blur(4px);
+      animation:fadeIn .8s ease-out both;
+    }
+
+    .hero{
+      display:block;
+      width:100%;
+      height:auto;
+      aspect-ratio:16/9; /* keep a nice banner proportion */
+      object-fit:cover;
+    }
+
+    .content{ padding:28px 22px 32px; }
+
+    h1{
+      margin:0 0 10px;
+      font-size:clamp(28px,3.5vw,40px);
+      line-height:1.15;
+      color:var(--accent);
+      font-weight:800;
+      letter-spacing:.2px;
+      animation:slideUp .7s ease-out both .05s;
+    }
+
+    .sub{ 
+      margin: 4px 0 18px; 
+      font-weight:600; 
+      color:#7a1640;
+      opacity:.9;
+    }
+
+    p{
+      margin:0 auto 1.2em;
+      font-size:clamp(16px,1.9vw,18px);
+      line-height:1.7;
+      max-width:62ch;
+      text-align:left;
+      color:#3a3a3a;
+      animation:slideUp .7s ease-out both .1s;
+    }
+
+    .love{
+      display:inline-block;
+      color:var(--accent);
+      font-weight:800;
+      letter-spacing:.3px;
+      animation:pulse 1.6s ease-in-out infinite;
+    }
+
+    footer{ 
+      margin-top:10px; 
+      font-size:14px; 
+      color:#a22a59;
+      opacity:.9;
+    }
+
+    .hero-fallback{display:none;place-items:center;width:100%;aspect-ratio:16/9;background:linear-gradient(135deg, var(--pink-1), var(--pink-2));color:var(--accent);font-size:clamp(64px,12vw,120px);font-weight:800;}
+
+    /* Animations */
+    @keyframes fadeIn{from{opacity:0} to{opacity:1}}
+    @keyframes slideUp{from{opacity:0; transform:translateY(14px)} to{opacity:1; transform:translateY(0)}}
+    @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.12)}100%{transform:scale(1)}}
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Happy Anniversary to the love of my life ♥️</h1>
-        <p>
-            Thank you for making every single day a joy. I’m so grateful to have found my dream companion in our Lord. Even with all the signs we’ve received from God, I never needed a sign to know you were the one from our very first dates I already knew I wanted you. Still, it amazes me that God gave us His blessing for one another. I believe He had us written together long before we even met, preparing each of us until the time was right.<br><br>
+  <main class="card" role="main" aria-label="Anniversary message for Gabriela">
+    <!-- Place IMG_5826.jpg in the same folder as this HTML, or update the src path below -->
+    <!-- Put the image at: /assets/IMG_5826.jpg  (or update the path below) -->
+    <img class="hero" src="assets/IMG_5826.jpg" alt="Silhouette couple with heart background" loading="eager" decoding="async"/>
+    <div class="hero-fallback" aria-hidden="true">♥️</div>
 
-            God has truly allowed me to see the difference between who I was before and who I am now. I know I wasn’t worthy of you then and I own up that, but now I see He was shaping me to hopefully be worthy of such a rare, amazing woman. That thought alone makes me emotional. That’s why I always tell you I promise to give you my very best, even in the difficult times. You are the dream that came true, and for so long I could hardly believe you even said yes to me.<br><br>
+    <div class="content">
+      <h1>Happy Anniversary to the love of my life <span class="love">♥️</span></h1>
 
-            Everything you do for me and my family means the world to me. You’ve given me things no one else ever has, and I can never thank you enough. You are so beautiful, Gaby, truly the most beautiful woman I’ve ever met. I only have eyes for you, and I always look at you in awe. I will always keep praying for you.<br><br>
+      <p>
+        Thank you for making every single day a joy. I’m so grateful to have found my dream companion in our Lord. Even with all the signs we’ve received from God, I never needed a sign to know you were the one — from our very first dates I already knew I wanted you. Still, it amazes me that God gave us His blessing for one another. I believe He had us written together long before we even met, preparing each of us until the time was right.
+      </p>
 
-            I love you ❤️<br><br>
+      <p>
+        God has truly allowed me to see the difference between who I was before and who I am now. I know I wasn’t worthy of you then and I own up to that, but now I see He was shaping me to hopefully be worthy of such a rare, amazing woman. That thought alone makes me emotional. That’s why I always tell you I promise to give you my very best, even in the difficult times. You are the dream that came true, and for so long I could hardly believe you even said yes to me.
+      </p>
 
-            (One of the best parts is that my “owner” is so fine 🤩😍😘)
-        </p>
+      <p>
+        Everything you do for me and my family means the world to me. You’ve given me things no one else ever has, and I can never thank you enough. You are so beautiful, Gaby — truly the most beautiful woman I’ve ever met. I only have eyes for you, and I always look at you in awe. I will always keep praying for you.
+      </p>
+
+      <p class="sub">I love you <span class="love">❤️</span></p>
+
+      <footer>(One of the best parts is that my “owner” is so fine 🤩😍😘)</footer>
     </div>
+  </main>
+  <script>
+    // If the image path is wrong or missing, show a cute fallback instead of a broken img icon
+    (function(){
+      var img=document.querySelector('.hero');
+      var fb=document.querySelector('.hero-fallback');
+      if(!img||!fb) return;
+      img.addEventListener('error',function(){
+        img.style.display='none';
+        fb.style.display='grid';
+      });
+    })();
+  </script>
 </body>
 </html>
