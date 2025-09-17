@@ -7,14 +7,15 @@
     <style>
         body {
             margin: 0;
-            height: 100vh;
+            min-height: 100vh; /* Changed from height to min-height for flexibility */
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start; /* Adjusted to allow content to grow */
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #ffafbd, #ffc3a0);
+            background: linear-gradient(135deg, #ffafbd, #ffc3a0); /* Pink gradient restored */
             color: #333;
-            overflow: auto;
+            padding-top: 20px;
+            overflow-y: auto; /* Ensures vertical scrolling when needed */
         }
         .container {
             text-align: center;
@@ -23,6 +24,7 @@
             background: rgba(255, 255, 255, 0.8);
             border-radius: 15px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px; /* Adds space at the bottom for scrolling */
         }
         img {
             max-width: 100%;
