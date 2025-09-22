@@ -1,147 +1,184 @@
+<!--
+How to use:
+1) Save this file as index.html at the root of your GitHub Pages repo.
+2) Put your photo at images/thankyou-photo.jpg (or change the <img src> below to match your file path/name).
+3) Commit & push. In your repo settings, enable GitHub Pages (if not already), then open your site.
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Happy Anniversary Gabriela</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <title>Thank You, Gabriela</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
   <style>
     :root{
-      --pink-1:#ffafbd; /* background gradient start */
-      --pink-2:#ffc3a0; /* background gradient end   */
+      --bg1:#ffafbd; /* pink gradient start */
+      --bg2:#ffc3a0; /* peach gradient end  */
+      --ink:#2a2a2a;
+      --card:rgba(255,255,255,.92);
+      --shadow:0 18px 40px rgba(0,0,0,.18);
       --accent:#e91e63; /* hot pink */
-      --ink:#2a2a2a;    /* body text */
-      --card-bg:rgba(255,255,255,.9);
-      --radius:18px;
-      --shadow:0 10px 30px rgba(0,0,0,.18);
     }
 
-    /* Page */
-    html,body{height:100%;}
+    *{box-sizing:border-box}
+    html,body{height:100%}
     body{
       margin:0;
       font-family:"Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color:var(--ink);
-      background:linear-gradient(135deg,var(--pink-1),var(--pink-2));
-      display:flex;
-      justify-content:center;
-      align-items:flex-start; /* allow content to grow */
-      padding:24px;
-      min-height:100svh; /* better on mobile */
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
+      background:linear-gradient(135deg,var(--bg1),var(--bg2));
+      overflow-x:hidden;
     }
 
-    /* Card */
-    .card{
-      width:min(780px,94vw);
-      background:var(--card-bg);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      overflow:hidden; /* round the image corners */
-      text-align:center;
-      backdrop-filter:saturate(140%) blur(4px);
-      animation:fadeIn .8s ease-out both;
-    }
-
+    /* Curved "Thank You" header using SVG textPath */
     .hero{
-      display:block;
-      width:100%;
-      height:auto;
-      aspect-ratio:16/9; /* keep a nice banner proportion */
-      object-fit:cover;
+      position:relative; padding-top:32px; padding-bottom:10px; text-align:center;
+    }
+    .hero svg{ width:min(1000px, 96vw); height:auto; display:block; margin:0 auto; overflow:visible; }
+    .hero text{
+      font-family:"Dancing Script", cursive; font-weight:700; font-size:76px; letter-spacing:1px;
+      filter:drop-shadow(0 6px 10px rgba(0,0,0,.18));
     }
 
-    .content{ padding:28px 22px 32px; }
+    /* Content card */
+    .container{ max-width:900px; margin:24px auto 80px; padding:0 16px; }
+    .card{
+      background:var(--card); border-radius:22px; box-shadow:var(--shadow);
+      padding:24px; backdrop-filter:saturate(150%) blur(4px);
+    }
+    .card h2{ margin:0 0 14px; font-size:28px; font-weight:600; color:#b0003a; }
+    .card p{ line-height:1.75; margin:10px 0; font-size:18px; }
 
-    h1{
-      margin:0 0 10px;
-      font-size:clamp(28px,3.5vw,40px);
-      line-height:1.15;
-      color:var(--accent);
-      font-weight:800;
-      letter-spacing:.2px;
-      animation:slideUp .7s ease-out both .05s;
+    /* Photo block */
+    figure{ margin:0; }
+    .photo{
+      width:100%; max-height:520px; object-fit:cover; border-radius:18px; box-shadow:var(--shadow);
+      border:4px solid #fff;
+    }
+    figcaption{ text-align:center; font-size:14px; opacity:.8; margin-top:10px; }
+
+    /* Floating hearts sprinkled across the page */
+    .hearts{ position:fixed; inset:0; pointer-events:none; z-index:0; }
+    .heart{
+      position:absolute; bottom:-12vh; font-size:clamp(16px, 3.5vw, 38px);
+      animation:floatUp linear infinite; opacity:.9; color:#ff5e9c; text-shadow:0 6px 14px rgba(0,0,0,.2);
+    }
+    @keyframes floatUp{
+      from{ transform:translateY(0) scale(1) rotate(0deg); opacity:.0; }
+      10%{ opacity:1; }
+      to{ transform:translateY(-120vh) scale(1.2) rotate(12deg); opacity:0; }
+    }
+    /* Stagger positions & durations */
+    .heart:nth-child(1){ left:4%;  animation-duration:13s; }
+    .heart:nth-child(2){ left:12%; animation-duration:16s; }
+    .heart:nth-child(3){ left:20%; animation-duration:12s; }
+    .heart:nth-child(4){ left:28%; animation-duration:18s; }
+    .heart:nth-child(5){ left:36%; animation-duration:14s; }
+    .heart:nth-child(6){ left:44%; animation-duration:19s; }
+    .heart:nth-child(7){ left:52%; animation-duration:15s; }
+    .heart:nth-child(8){ left:60%; animation-duration:17s; }
+    .heart:nth-child(9){ left:68%; animation-duration:13s; }
+    .heart:nth-child(10){ left:76%; animation-duration:16s; }
+    .heart:nth-child(11){ left:84%; animation-duration:12s; }
+    .heart:nth-child(12){ left:92%; animation-duration:18s; }
+
+    /* Gentle drift */
+    .heart{ animation-name:floatUp, sway; }
+    @keyframes sway{
+      0%{ transform:translateY(0) translateX(0) rotate(0deg); }
+      50%{ transform:translateY(-60vh) translateX(10px) rotate(6deg); }
+      100%{ transform:translateY(-120vh) translateX(-8px) rotate(12deg); }
     }
 
-    .sub{ 
-      margin: 4px 0 18px; 
-      font-weight:600; 
-      color:#7a1640;
-      opacity:.9;
+    /* Reduce motion if user prefers */
+    @media (prefers-reduced-motion: reduce){
+      .hearts{ display:none; }
+      .hero text{ filter:none; }
     }
 
-    p{
-      margin:0 auto 1.2em;
-      font-size:clamp(16px,1.9vw,18px);
-      line-height:1.7;
-      max-width:62ch;
-      text-align:left;
-      color:#3a3a3a;
-      animation:slideUp .7s ease-out both .1s;
-    }
+    /* Subtle foreground layering */
+    .content{ position:relative; z-index:1; }
 
-    .love{
-      display:inline-block;
-      color:var(--accent);
-      font-weight:800;
-      letter-spacing:.3px;
-      animation:pulse 1.6s ease-in-out infinite;
-    }
-
-    footer{ 
-      margin-top:10px; 
-      font-size:14px; 
-      color:#a22a59;
-      opacity:.9;
-    }
-
-    .hero-fallback{display:none;place-items:center;width:100%;aspect-ratio:16/9;background:linear-gradient(135deg, var(--pink-1), var(--pink-2));color:var(--accent);font-size:clamp(64px,12vw,120px);font-weight:800;}
-
-    /* Animations */
-    @keyframes fadeIn{from{opacity:0} to{opacity:1}}
-    @keyframes slideUp{from{opacity:0; transform:translateY(14px)} to{opacity:1; transform:translateY(0)}}
-    @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.12)}100%{transform:scale(1)}}
+    /* Footer */
+    footer{ text-align:center; margin:40px 0 20px; font-size:14px; opacity:.8; }
+      /* Love logo / big heart under the arc */
+    .love-mark{ margin-top:-8px; display:flex; justify-content:center; align-items:center; }
+    .love-mark svg{ width:clamp(120px,28vw,220px); height:auto; filter:drop-shadow(0 10px 20px rgba(0,0,0,.18)); }
   </style>
 </head>
 <body>
-  <main class="card" role="main" aria-label="Anniversary message for Gabriela">
-    <!-- Place IMG_5826.jpg in the same folder as this HTML, or update the src path below -->
-    <!-- Put the image at: /assets/IMG_5826.jpg  (or update the path below) -->
-    <img class="hero" src="assets/IMG_5826.jpg" alt="Silhouette couple with heart background" loading="eager" decoding="async"/>
-    <div class="hero-fallback" aria-hidden="true">♥️</div>
+  <!-- Floating hearts -->
+  <div class="hearts" aria-hidden="true">
+    <span class="heart">❤</span>
+    <span class="heart">❤</span>
+    <span class="heart">❤</span>
+    <span class="heart">❤</span>
+    <span class="heart">❤</span>
+    <span class="heart">❤</span>
+    <span class="heart">❤</span>
+    <span class="heart">❤</span>
+    <span class="heart">❤</span>
+    <span class="heart">❤</span>
+    <span class="heart">❤</span>
+    <span class="heart">❤</span>
+  </div>
 
-    <div class="content">
-      <h1>Happy Anniversary to the love of my life <span class="love">♥️</span></h1>
-
-      <p>
-        Thank you for making every single day a joy. I’m so grateful to have found my dream companion in our Lord. Even with all the signs we’ve received from God, I never needed a sign to know you were the one. Still, it amazes me that God gave us His blessing for one another. I believe He had us written together long before we even met, preparing each of us until the time was right.
-      </p>
-
-      <p>
-        God has truly allowed me to see the difference between who I was before and who I am now. I know I wasn’t worthy of someone like you then, and I own up to that, but now I see He was shaping me to hopefully be worthy of such a rare, amazing, strong, beautiful woman of such strong faith. That thought alone makes me emotional. That’s why I always tell you I promise to give you my very best, even in the difficult times. You are the dream that came true, and for so long I could hardly believe you even said yes to me.
-      </p>
-
-      <p>
-        Everything you do for me and my family means the world to me. You’ve given me things no one else ever has, and I can never thank you enough. You are so beautiful, Gaby, truly the most beautiful woman I’ve ever met. I only have eyes for you, and I always look at you in such awe. I will always keep praying for us
-      </p>
-
-      <p class="sub">I love you Gabriela <span class="love">♥️</span></p>
-
-      <footer>(One of the best part is that my “owner” is so fine 🤩😍😘)</footer>
+  <header class="hero">
+    <svg viewBox="0 0 1000 240" role="img" aria-label="Thank You curved like a rainbow">
+      <defs>
+        <!-- Rainbow gradient fill for the text -->
+        <linearGradient id="rainbow" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#ff2d55"/>
+          <stop offset="20%" stop-color="#ff6b6b"/>
+          <stop offset="40%" stop-color="#ffd166"/>
+          <stop offset="60%" stop-color="#06d6a0"/>
+          <stop offset="80%" stop-color="#118ab2"/>
+          <stop offset="100%" stop-color="#9b5de5"/>
+        </linearGradient>
+        <!-- Arc path -->
+        <path id="arc" d="M 50 180 A 450 450 0 0 1 950 180" fill="none" />
+      </defs>
+      <text fill="url(#rainbow)">
+        <textPath href="#arc" startOffset="50%" text-anchor="middle">Thank You</textPath>
+      </text>
+    </svg>
+      <div class="love-mark" aria-hidden="true">
+      <svg viewBox="0 0 100 100" role="img" aria-label="Heart logo">
+        <defs>
+          <linearGradient id="loveGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#ff4d8d"/>
+            <stop offset="50%" stop-color="#ff6fb0"/>
+            <stop offset="100%" stop-color="#ff8fbf"/>
+          </linearGradient>
+        </defs>
+        <path d="M50 15 C35 -5, 0 -5, 0 25 C0 55, 50 75, 50 95 C50 75, 100 55, 100 25 C100 -5, 65 -5, 50 15 Z" fill="url(#loveGrad)"/>
+      </svg>
     </div>
+  </header>
+
+  <main class="container content">
+    <div class="card">
+      <figure>
+        <!-- Replace the src path with your actual image file if different -->
+        <img class="photo" src="images/thankyou-photo.jpg" alt="A special memory with Gabriela" />
+        <figcaption>So grateful to share this day with you ♡</figcaption>
+      </figure>
+
+      <h2>From Salvador</h2>
+      <p>
+        Thank you Gabriela letting me come to such a special intimate day :) And please tell you Dad i said thank you again. It was nice day, im also glad i was able to experience a little bit of laudes :) But it reallt really meant alot to me Gaby. I always hear how incredible your gradma was :) Your grandma has raised wonderful children and she help raise such a wonderful, incredilble grandaughter :) I remeber during your grandmass anniversary mass, karen said how your grandma said that whenever you have issues, pray first. From that moment it, i really took that advice and it helped me greatly . Every time i have a moment, i always pray first. I wish i was able to meet yout grandma and i know for fact that your grandma is heaven smilling directly at you. Shes defintly proud of the strong women you are :) You are everything that every guy dreams of having and i hope you how special you are
+      </p>
+    </div>
+
+    <footer>
+      Made with ❤ for Gaby — <span id="year"></span>
+    </footer>
   </main>
+
   <script>
-    // If the image path is wrong or missing, show a cute fallback instead of a broken img icon
-    (function(){
-      var img=document.querySelector('.hero');
-      var fb=document.querySelector('.hero-fallback');
-      if(!img||!fb) return;
-      img.addEventListener('error',function(){
-        img.style.display='none';
-        fb.style.display='grid';
-      });
-    })();
+    // Update year in footer
+    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
