@@ -5,145 +5,78 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>I Love You Gabriela</title>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
-  <style>
-    /* Full-screen backdrop */
-    html, body {
-      height: 100%;
-    }
-    body {
-      margin: 0;
-      background: linear-gradient(to bottom, #1a1a2e, #16213e, #0f0f23);
-      font-family: 'Playfair Display', serif;
-      color: #fff;
-      overflow: hidden;
-    }
-    /* Canvas behind everything */
-    #heartsCanvas {
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-    }
-
-    /* Absolute center overlay */
-    .center {
-      position: fixed;
-      inset: 0;
-      display: grid;
-      place-items: center;
-      text-align: center;
-      padding: 2rem;
-      z-index: 2;
-      pointer-events: none;
-    }
-
-    /* Romantic headline */
-    .center h1 {
-      margin: 0;
-      font-family: 'Great Vibes', cursive;
-      font-size: clamp(3rem, 8vw, 7rem);
-      line-height: 1.05;
-      letter-spacing: 0.5px;
-      background: linear-gradient(to right, #ff9aa2, #ff6f91, #ff477e);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      text-shadow:
-        0 0 8px rgba(255, 105, 180, 0.35),
-        0 0 18px rgba(255, 105, 180, 0.25);
-      animation: pulse 2.4s ease-in-out infinite;
-    }
-
-    .subtitle {
-      margin: 0.5rem 0 0;
-      font-size: clamp(1rem, 2.5vw, 1.5rem);
-      opacity: 0.9;
-      letter-spacing: 0.08em;
-    }
-
-    .heart-accent {
-      display: inline-block;
-      margin-top: 1rem;
-      font-size: clamp(1.25rem, 3vw, 2rem);
-      filter: drop-shadow(0 0 6px rgba(255, 100, 150, 0.6));
-      animation: float 3s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.06); }
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50%      { transform: translateY(-8px); }
-    }
-  </style>
 </head>
-<body>
-  <canvas id="heartsCanvas" aria-hidden="true"></canvas>
+<body style="margin:0; height:100vh; overflow:hidden; background:linear-gradient(to bottom,#1a1a2e,#16213e,#0f0f23); color:#fff; font-family:'Playfair Display',serif;">
+  <!-- Canvas behind everything -->
+  <canvas id="heartsCanvas" aria-hidden="true"
+          style="position:fixed; inset:0; width:100%; height:100%; z-index:0;"></canvas>
 
-  <div class="center">
+  <!-- Perfectly centered overlay (inline styles = no stylesheet needed) -->
+  <div style="position:fixed; inset:0; display:grid; place-items:center; text-align:center; padding:2rem; z-index:2; pointer-events:none;">
     <div>
-      <h1>I love you, Gabriela</h1>
-      <p class="subtitle">Forever &amp; always</p>
-      <div class="heart-accent" aria-hidden="true">❤</div>
+      <h1 style="
+        margin:0;
+        font-family:'Great Vibes',cursive;
+        font-size:clamp(3rem,8vw,7rem);
+        line-height:1.05;
+        letter-spacing:.5px;
+        background:linear-gradient(to right,#ff9aa2,#ff6f91,#ff477e);
+        -webkit-background-clip:text; background-clip:text; color:transparent;
+        text-shadow:0 0 8px rgba(255,105,180,.35), 0 0 18px rgba(255,105,180,.25);
+        animation:pulse 2.4s ease-in-out infinite;">
+        I love you, Gabriela
+      </h1>
+      <p style="margin:.5rem 0 0; font-size:clamp(1rem,2.5vw,1.5rem); opacity:.9; letter-spacing:.08em;">
+        Forever &amp; always
+      </p>
+      <div aria-hidden="true" style="margin-top:1rem; font-size:clamp(1.25rem,3vw,2rem); filter:drop-shadow(0 0 6px rgba(255,100,150,.6)); animation:float 3s ease-in-out infinite;">❤</div>
     </div>
   </div>
 
+  <style>
+    /* Small keyframes only (safe to keep here; centering doesn’t depend on them) */
+    @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.06)} }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+  </style>
+
   <script>
-    // Animated raining hearts
+    // Hearts animation
     const canvas = document.getElementById('heartsCanvas');
     const ctx = canvas.getContext('2d');
-    function resize() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    resize();
-    window.addEventListener('resize', resize);
+    function resize(){ canvas.width = innerWidth; canvas.height = innerHeight; }
+    resize(); addEventListener('resize', resize);
 
-    const hearts = [];
-    const heartCount = 50;
+    const hearts = Array.from({length:50}, () => ({
+      x: Math.random() * canvas.width,
+      y: -20,
+      size: Math.random() * 20 + 10,
+      speed: Math.random() * 3 + 2,
+      opacity: Math.random() * 0.5 + 0.3,
+      sway: Math.random() * 0.02 + 0.01
+    }));
 
-    function createHeart() {
-      return {
-        x: Math.random() * canvas.width,
-        y: -20,
-        size: Math.random() * 20 + 10,
-        speed: Math.random() * 3 + 2,
-        opacity: Math.random() * 0.5 + 0.3,
-        sway: Math.random() * 0.02 + 0.01
-      };
-    }
-
-    for (let i = 0; i < heartCount; i++) hearts.push(createHeart());
-
-    function drawHeart(x, y, size, opacity) {
+    function drawHeart(x,y,s,o){
       ctx.beginPath();
-      ctx.moveTo(x, y + size / 4);
-      ctx.bezierCurveTo(x, y, x - size / 2, y - size / 4, x - size / 2, y + size / 4);
-      ctx.bezierCurveTo(x - size / 2, y + size / 2, x, y + size, x, y + size);
-      ctx.bezierCurveTo(x, y + size, x + size / 2, y + size / 2, x + size / 2, y + size / 4);
-      ctx.bezierCurveTo(x + size / 2, y - size / 4, x, y, x, y + size / 4);
-      ctx.fillStyle = `rgba(214, 51, 132, ${opacity})`;
+      ctx.moveTo(x, y + s/4);
+      ctx.bezierCurveTo(x, y, x - s/2, y - s/4, x - s/2, y + s/4);
+      ctx.bezierCurveTo(x - s/2, y + s/2, x, y + s, x, y + s);
+      ctx.bezierCurveTo(x, y + s, x + s/2, y + s/2, x + s/2, y + s/4);
+      ctx.bezierCurveTo(x + s/2, y - s/4, x, y, x, y + s/4);
+      ctx.fillStyle = `rgba(214,51,132,${o})`;
       ctx.fill();
     }
 
-    function animateHearts() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      hearts.forEach(h => {
+    function tick(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      hearts.forEach(h=>{
         h.y += h.speed;
         h.x += Math.sin(h.y * h.sway) * 2;
-        if (h.y > canvas.height + h.size) {
-          h.y = -h.size;
-          h.x = Math.random() * canvas.width;
-        }
-        drawHeart(h.x, h.y, h.size, h.opacity);
+        if (h.y > canvas.height + h.size){ h.y = -h.size; h.x = Math.random()*canvas.width; }
+        drawHeart(h.x,h.y,h.size,h.opacity);
       });
-      requestAnimationFrame(animateHearts);
+      requestAnimationFrame(tick);
     }
-    animateHearts();
+    tick();
   </script>
 </body>
 </html>
