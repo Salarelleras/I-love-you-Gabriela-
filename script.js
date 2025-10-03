@@ -29,7 +29,7 @@ function drawHeart(x, y, size, opacity) {
     ctx.bezierCurveTo(x - size / 2, y + size / 2, x, y + size, x, y + size);
     ctx.bezierCurveTo(x, y + size, x + size / 2, y + size / 2, x + size / 2, y + size / 4);
     ctx.bezierCurveTo(x + size / 2, y - size / 4, x, y, x, y + size / 4);
-    ctx.fillStyle = `rgba(255, 111, 97, ${opacity})`;
+    ctx.fillStyle = `rgba(214, 51, 132, ${opacity})`;
     ctx.fill();
 }
 
