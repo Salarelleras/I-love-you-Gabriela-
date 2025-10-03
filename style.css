@@ -1,39 +1,76 @@
+/* Full-screen backdrop */
 body {
-    margin: 0;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(to bottom, #1a1a2e, #16213e, #0f0f23);
-    font-family: 'Georgia', serif;
-    overflow: hidden;
-    color: #fff;
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(to bottom, #1a1a2e, #16213e, #0f0f23);
+  font-family: 'Playfair Display', serif;
+  color: #fff;
+  overflow: hidden;
 }
 
-.message {
-    text-align: center;
-    z-index: 1;
-    position: relative;
-}
-
-.message h1 {
-    font-size: 3em;
-    margin: 0;
-    color: #ff6f61;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-}
-
+/* Canvas behind everything */
 #heartsCanvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* Absolute center overlay (always centered regardless of layout) */
+.center {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 2rem;
+  z-index: 2;           /* above the canvas */
+  pointer-events: none; /* lets clicks flow through if needed */
+}
+
+/* Romantic headline */
+.center h1 {
+  margin: 0;
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(3rem, 8vw, 7rem);
+  line-height: 1.05;
+  letter-spacing: 0.5px;
+  background: linear-gradient( to right, #ff9aa2, #ff6f91, #ff477e );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow:
+    0 0 8px rgba(255, 105, 180, 0.35),
+    0 0 18px rgba(255, 105, 180, 0.25);
+  animation: pulse 2.4s ease-in-out infinite;
+}
+
+/* Soft supporting line */
+.subtitle {
+  margin: 0.5rem 0 0;
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  opacity: 0.9;
+  letter-spacing: 0.08em;
+}
+
+/* Tiny floating heart accent */
+.heart-accent {
+  display: inline-block;
+  margin-top: 1rem;
+  font-size: clamp(1.25rem, 3vw, 2rem);
+  filter: drop-shadow(0 0 6px rgba(255, 100, 150, 0.6));
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Gentle heartbeat */
+@keyframes pulse {
+  0%, 100% { transform: scale(1);   }
+  50%      { transform: scale(1.06); }
+}
+
+/* Floating heart wiggle */
+@keyframes float {
+  0%, 100% { transform: translateY(0);        }
+  50%      { transform: translateY(-8px);     }
 }
