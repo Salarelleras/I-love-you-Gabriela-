@@ -4,7 +4,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(to bottom, #1a1a2e, #16213e, #0f0f23);
+    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
     font-family: 'Georgia', serif;
     overflow: hidden;
     color: #fff;
@@ -13,14 +13,17 @@ body {
 .message {
     text-align: center;
     z-index: 1;
-    position: relative;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .message h1 {
     font-size: 3em;
     margin: 0;
-    color: #ff6f61;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    color: #d63384;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     animation: pulse 2s ease-in-out infinite;
 }
 
